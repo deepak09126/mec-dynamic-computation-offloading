@@ -1,0 +1,34 @@
+{
+  "profile": "unseen",
+  "simulated_estimates": true,
+  "results": {
+    "dqn": {
+      "average_latency_ms": 720.0069026666665,
+      "average_estimated_energy_mj": 33.319935666666666,
+      "deadline_miss_rate": 0.35133333333333333,
+      "task_failure_rate": 0.0,
+      "cumulative_reward": -168.57997387341393
+    },
+    "local_only": {
+      "average_latency_ms": 363.13426200000004,
+      "average_estimated_energy_mj": 84.19455233333333,
+      "deadline_miss_rate": 0.36699999999999994,
+      "task_failure_rate": 0.0,
+      "cumulative_reward": -103.48727929453095
+    },
+    "random": {
+      "average_latency_ms": 1492.591566,
+      "average_estimated_energy_mj": 32.77844066666667,
+      "deadline_miss_rate": 0.5846666666666667,
+      "task_failure_rate": 0.0,
+      "cumulative_reward": -337.04004999913036
+    },
+    "latency_aware": {
+      "average_latency_ms": 295.20331699999997,
+      "average_estimated_energy_mj": 57.060523,
+      "deadline_miss_rate": 0.2723333333333333,
+      "task_failure_rate": 0.0,
+      "cumulative_reward": -81.37201801450554
+    }
+  }
+}

@@ -3,32 +3,32 @@
   "simulated_estimates": true,
   "results": {
     "dqn": {
-      "average_latency_ms": 171.47747399999997,
-      "average_estimated_energy_mj": 21.348066333333332,
-      "deadline_miss_rate": 0.09799999999999999,
+      "average_latency_ms": 170.17725566666667,
+      "average_estimated_energy_mj": 20.650533666666664,
+      "deadline_miss_rate": 0.09599999999999997,
       "task_failure_rate": 0.0,
-      "cumulative_reward": -42.41704014028448
+      "cumulative_reward": -41.96375644644523
     },
     "local_only": {
-      "average_latency_ms": 369.120425,
-      "average_estimated_energy_mj": 85.14056733333332,
-      "deadline_miss_rate": 0.37066666666666664,
+      "average_latency_ms": 358.6236663333333,
+      "average_estimated_energy_mj": 83.49227066666667,
+      "deadline_miss_rate": 0.361,
       "task_failure_rate": 0.0,
-      "cumulative_reward": -105.00384274398868
+      "cumulative_reward": -102.15142171631824
     },
     "random": {
-      "average_latency_ms": 261.894537,
-      "average_estimated_energy_mj": 33.454087,
-      "deadline_miss_rate": 0.217,
+      "average_latency_ms": 256.7323633333333,
+      "average_estimated_energy_mj": 31.382842666666665,
+      "deadline_miss_rate": 0.2046666666666667,
       "task_failure_rate": 0.0,
-      "cumulative_reward": -68.9115860853764
+      "cumulative_reward": -66.921670561724
     },
     "latency_aware": {
-      "average_latency_ms": 170.40818499999997,
-      "average_estimated_energy_mj": 22.309696,
-      "deadline_miss_rate": 0.09733333333333333,
+      "average_latency_ms": 167.90678599999995,
+      "average_estimated_energy_mj": 21.835986666666667,
+      "deadline_miss_rate": 0.09533333333333331,
       "task_failure_rate": 0.0,
-      "cumulative_reward": -42.26415349648747
+      "cumulative_reward": -41.59413509819633
     }
   }
 }

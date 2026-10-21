@@ -1,0 +1,61 @@
+\begin{table}[t]
+\centering\small
+\caption{Evaluation results: mean $\pm$ sample standard deviation over five training seeds (1--5); each run is the mean of 100 evaluation episodes. Latency and energy are simulated estimates; the task-failure rate is 0 for every entry. Local-only, random and latency-aware do not depend on the training seed and are evaluated on the same scenarios in every run, so their deviation reflects only the evaluation seeding.}\label{tab:results}
+\begin{tabular}{llrrrr}
+\toprule
+Profile & Policy & Latency (ms) & Energy (mJ) & Miss rate (\%) & Cum.\ reward\\
+\midrule
+\multirow{4}{*}{Train} & DQN & $174.9\pm4.8$ & $20.4\pm2.4$ & $9.8\pm0.4$ & $-42.99\pm0.99$\\
+ & Local-only & $358.6\pm0.0$ & $83.5\pm0.0$ & $36.1\pm0.0$ & $-102.15\pm0.00$\\
+ & Random & $256.7\pm0.0$ & $31.4\pm0.0$ & $20.5\pm0.0$ & $-66.92\pm0.00$\\
+ & Latency-aware & $167.9\pm0.0$ & $21.8\pm0.0$ & $9.5\pm0.0$ & $-41.59\pm0.00$\\
+\midrule
+\multirow{4}{*}{Congestion} & DQN & $482.6\pm22.2$ & $41.3\pm3.2$ & $38.3\pm2.4$ & $-123.87\pm5.13$\\
+ & Local-only & $363.1\pm0.0$ & $84.2\pm0.0$ & $36.7\pm0.0$ & $-103.49\pm0.00$\\
+ & Random & $941.0\pm0.0$ & $31.3\pm0.0$ & $67.3\pm0.0$ & $-231.86\pm0.00$\\
+ & Latency-aware & $321.1\pm0.0$ & $66.2\pm0.0$ & $30.6\pm0.0$ & $-89.53\pm0.00$\\
+\midrule
+\multirow{4}{*}{Unseen} & DQN & $661.1\pm36.5$ & $37.2\pm3.7$ & $33.7\pm2.0$ & $-156.34\pm7.88$\\
+ & Local-only & $363.1\pm0.0$ & $84.2\pm0.0$ & $36.7\pm0.0$ & $-103.49\pm0.00$\\
+ & Random & $1492.6\pm0.0$ & $32.8\pm0.0$ & $58.5\pm0.0$ & $-337.04\pm0.00$\\
+ & Latency-aware & $295.2\pm0.0$ & $57.1\pm0.0$ & $27.2\pm0.0$ & $-81.37\pm0.00$\\
+\midrule
+\multirow{4}{*}{Outage} & DQN & $1080.8\pm109.5$ & $46.0\pm4.3$ & $47.9\pm4.4$ & $-249.75\pm23.79$\\
+ & Local-only & $363.1\pm0.0$ & $84.2\pm0.0$ & $36.7\pm0.0$ & $-103.49\pm0.00$\\
+ & Random & $2574.2\pm0.0$ & $35.5\pm0.0$ & $77.4\pm0.0$ & $-565.02\pm0.00$\\
+ & Latency-aware & $354.1\pm0.0$ & $79.6\pm0.0$ & $35.7\pm0.0$ & $-100.61\pm0.00$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{DQN relative to the latency-aware heuristic (LA) and to local-only (Loc), computed per seed and then summarised as mean $\pm$ SD over the five seeds. Latency and energy as percentage change (negative = DQN lower); miss rate as percentage-point difference.}\label{tab:rel2}
+\begin{tabular}{lrrrrrr}
+\toprule
+ & \multicolumn{3}{c}{vs.\ LA} & \multicolumn{3}{c}{vs.\ Loc}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Profile & Latency (\%) & Energy (\%) & Miss (pp) & Latency (\%) & Energy (\%) & Miss (pp)\\
+\midrule
+Train & $4.2\pm2.9$ & $-6.5\pm10.9$ & $0.25\pm0.40$ & $-51.2\pm1.3$ & $-75.5\pm2.9$ & $-26.32\pm0.40$\\
+Congestion & $50.3\pm6.9$ & $-37.7\pm4.8$ & $7.74\pm2.36$ & $32.9\pm6.1$ & $-51.0\pm3.8$ & $1.64\pm2.36$\\
+Unseen & $123.9\pm12.4$ & $-34.7\pm6.5$ & $6.46\pm2.01$ & $82.0\pm10.1$ & $-55.8\pm4.4$ & $-3.01\pm2.01$\\
+Outage & $205.3\pm30.9$ & $-42.1\pm5.4$ & $12.18\pm4.39$ & $197.6\pm30.2$ & $-45.3\pm5.1$ & $11.21\pm4.39$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{Cost gap (DQN minus latency-aware; positive = DQN worse) split by reward term, $H=30$; mean $\pm$ SD over five seeds. The total is the negative difference of the cumulative rewards.}\label{tab:gap}
+\begin{tabular}{lrrrr}
+\toprule
+Profile & Latency term & Energy term & Deadline term & Total\\
+\midrule
+Train & $1.40\pm0.96$ & $-0.15\pm0.25$ & $0.15\pm0.24$ & $1.40\pm0.99$\\
+Congestion & $32.31\pm4.43$ & $-2.62\pm0.34$ & $4.64\pm1.42$ & $34.33\pm5.13$\\
+Unseen & $73.18\pm7.31$ & $-2.08\pm0.39$ & $3.88\pm1.21$ & $74.97\pm7.88$\\
+Outage & $145.35\pm21.90$ & $-3.52\pm0.45$ & $7.31\pm2.64$ & $149.14\pm23.79$\\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,34 @@
+{
+  "profile": "train",
+  "simulated_estimates": true,
+  "results": {
+    "dqn": {
+      "average_latency_ms": 175.47266999999997,
+      "average_estimated_energy_mj": 19.15951,
+      "deadline_miss_rate": 0.09599999999999997,
+      "task_failure_rate": 0.0,
+      "cumulative_reward": -42.86628016183265
+    },
+    "local_only": {
+      "average_latency_ms": 358.6236663333333,
+      "average_estimated_energy_mj": 83.49227066666667,
+      "deadline_miss_rate": 0.361,
+      "task_failure_rate": 0.0,
+      "cumulative_reward": -102.15142171631824
+    },
+    "random": {
+      "average_latency_ms": 256.7323633333333,
+      "average_estimated_energy_mj": 31.382842666666665,
+      "deadline_miss_rate": 0.2046666666666667,
+      "task_failure_rate": 0.0,
+      "cumulative_reward": -66.921670561724
+    },
+    "latency_aware": {
+      "average_latency_ms": 167.90678599999995,
+      "average_estimated_energy_mj": 21.835986666666667,
+      "deadline_miss_rate": 0.09533333333333331,
+      "task_failure_rate": 0.0,
+      "cumulative_reward": -41.59413509819633
+    }
+  }
+}

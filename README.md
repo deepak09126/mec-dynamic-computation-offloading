@@ -77,6 +77,20 @@ python -m pytest -q
 python app.py
 ```
 
+To run the five independent training seeds and evaluate every seed on all four
+profiles, then aggregate the results into paper-ready tables and figures:
+
+```powershell
+python run_multiseed.py
+python aggregate_results.py
+```
+
+The multi-seed command writes per-run JSON/CSV files under
+`runs/seed<S>/<profile>/`. The aggregation command reads those files and
+writes `results_tables.tex`, `fig_latency.png`, `fig_energy.png`,
+`fig_miss.png`, and `fig_gap.png`. Use `python aggregate_results.py
+--placeholder` when preparing a paper before real runs are available.
+
 The simulator is a sequential MDP. Its 13-value state includes normalized task size and CPU cycles, deadline pressure, battery level, local CPU availability, uplink bandwidth, jitter, Edge A/Edge B queue loads, cloud RTT, and Edge A/Edge B/cloud availability. Actions are local execution, Edge A, Edge B, and cloud. Every transition is recorded as `(state, action, reward, next_state, done)` and remote availability masks unavailable actions for policies.
 
 Reward is dimensionless: `-(latency_ms / 150 + 0.35 * energy_mJ / 100 + 2 * deadline_miss + 4 * failed_offload)`. Latency is a simulated ms estimate, energy is a simulated mJ estimate, 150 ms is the latency scaling reference, and 100 mJ is the energy scaling reference. The weights and penalties are configurable simulation assumptions, not calibrated measurements.

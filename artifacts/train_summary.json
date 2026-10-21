@@ -1,13 +1,13 @@
 {
-  "episodes": 300,
-  "seed": 7,
+  "episodes": 500,
+  "seed": 5,
   "training_summary": {
-    "average_latency_ms": 184.47098255555557,
-    "average_estimated_energy_mj": 20.642627333333333,
-    "deadline_miss_rate": 0.10955555555555553,
+    "average_latency_ms": 198.26502159999998,
+    "average_estimated_energy_mj": 23.463773733333333,
+    "deadline_miss_rate": 0.1272,
     "task_failure_rate": 0.0,
-    "cumulative_reward": -45.63500592484066
+    "cumulative_reward": -49.74870025316242
   },
-  "checkpoint": "artifacts\\dqn.pt",
+  "checkpoint": "artifacts\\dqn_seed5.pt",
   "note": "All latency and energy figures are simulated estimates."
 }

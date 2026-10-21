@@ -3,11 +3,11 @@
   "simulated_estimates": true,
   "results": {
     "dqn": {
-      "average_latency_ms": 539.888514,
-      "average_estimated_energy_mj": 42.49283433333333,
-      "deadline_miss_rate": 0.302,
+      "average_latency_ms": 640.4124196666667,
+      "average_estimated_energy_mj": 37.41725533333333,
+      "deadline_miss_rate": 0.33766666666666656,
       "task_failure_rate": 0.0,
-      "cumulative_reward": -130.55944942001662
+      "cumulative_reward": -152.27129557406445
     },
     "local_only": {
       "average_latency_ms": 363.13426200000004,
