@@ -66,6 +66,11 @@ class MECOffloadingEnv:
             self.bandwidth_mbps, self.queue_a_ms, self.queue_b_ms, self.cloud_rtt_ms = 1.5, 35.0, 25.0, 140.0
         elif self.profile == "unseen":
             self.bandwidth_mbps, self.queue_a_ms, self.queue_b_ms, self.cloud_rtt_ms = 8.0, 25.0, 35.0, 125.0
+        elif self.profile == "random":
+            self.bandwidth_mbps = self.rng.uniform(0.5, 60.0)
+            self.queue_a_ms = self.rng.uniform(0.0, 300.0)
+            self.queue_b_ms = self.rng.uniform(0.0, 300.0)
+            self.cloud_rtt_ms = self.rng.uniform(40.0, 250.0)
         else:
             lo, hi = self.config.train_bandwidth
             self.bandwidth_mbps = self.rng.uniform(lo, hi)
@@ -94,6 +99,8 @@ class MECOffloadingEnv:
             center, sigma, outage = 1.5, 0.5, 0.30
         elif self.profile == "unseen":
             center, sigma, outage = 7.0, 5.0, 0.12
+        elif self.profile == "random":
+            center, sigma, outage = self.rng.uniform(0.5, 60.0), 8.0, 0.12
         else:
             center, sigma, outage = 26.0, 3.0, 0.0
         self.bandwidth_mbps = max(0.5, min(60.0, 0.75 * self.bandwidth_mbps + 0.25 * center + self.rng.gauss(0, sigma)))

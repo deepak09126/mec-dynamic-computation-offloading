@@ -1,4 +1,5 @@
 import numpy as np
+from pathlib import Path
 from dqn import DQNAgent, LatencyAwarePolicy
 from mec_sim import EDGE_A, LOCAL, MECConfig, MECOffloadingEnv
 
@@ -28,6 +29,23 @@ def test_reward_units_and_weights_are_applied():
     assert abs(reward - expected) < 1e-6
 def test_agent_masks_unavailable_action():
     assert DQNAgent(seed=11).act(np.zeros(13, dtype=np.float32), [True, False, False, False]) == LOCAL
+
+def test_random_profile_is_not_training_profile():
+    env = MECOffloadingEnv(profile="random")
+    _, info = env.reset(seed=11)
+    assert info["profile"] == "random"
+    assert (info["bandwidth"], info["queue_a"], info["queue_b"], info["cloud_ms"]) != (24.0, 8.0, 15.0, 85.0)
+
+def test_checkpoint_restores_training_state(tmp_path: Path):
+    path = tmp_path / "agent.pt"
+    agent = DQNAgent(seed=11)
+    agent.observe(np.zeros(13), LOCAL, -1.0, np.ones(13), False)
+    agent.steps = 17
+    agent.save(path)
+    restored = DQNAgent(seed=99)
+    restored.load(path)
+    assert restored.steps == 17
+    assert len(restored.replay) == 1
 def test_dashboard_compatibility_endpoints():
     from app import app
     client = app.test_client()

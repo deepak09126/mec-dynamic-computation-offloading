@@ -81,9 +81,40 @@ class DQNAgent:
         if self.steps % self.config.target_sync_steps == 0: self.target.load_state_dict(self.online.state_dict())
         return float(loss.item())
     def save(self, path):
-        torch.save({"model": self.online.state_dict(), "config": asdict(self.config), "steps": self.steps}, path)
+        torch.save({
+            "model": self.online.state_dict(),
+            "target": self.target.state_dict(),
+            "optimizer": self.optimizer.state_dict(),
+            "config": asdict(self.config),
+            "steps": self.steps,
+            "replay": [
+                (state.tolist(), action, reward, next_state.tolist(), done)
+                for state, action, reward, next_state, done in self.replay.data
+            ],
+            "replay_rng": self.replay.rng.getstate(),
+            "agent_rng": self.rng.getstate(),
+        }, path)
     def load(self, path):
         data = torch.load(path, map_location=self.device, weights_only=True); self.online.load_state_dict(data["model"]); self.target.load_state_dict(data["model"]); self.steps = data.get("steps", 0)
+        if "target" in data:
+            self.target.load_state_dict(data["target"])
+        if "optimizer" in data:
+            self.optimizer.load_state_dict(data["optimizer"])
+        self.replay.data.clear()
+        self.replay.data.extend(
+            (
+                np.asarray(state, dtype=np.float32),
+                int(action),
+                float(reward),
+                np.asarray(next_state, dtype=np.float32),
+                bool(done),
+            )
+            for state, action, reward, next_state, done in data.get("replay", [])
+        )
+        if "replay_rng" in data:
+            self.replay.rng.setstate(data["replay_rng"])
+        if "agent_rng" in data:
+            self.rng.setstate(data["agent_rng"])
 
 
 class LocalPolicy:

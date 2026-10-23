@@ -28,7 +28,7 @@ def run_episode(env, policy, seed, explore=False):
 def aggregate(rows):
     return {k: float(np.mean([r[k] for r in rows])) for k in rows[0]}
 
-def train(episodes=500, seed=7, checkpoint=RESULT_DIR / "dqn.pt", agent=None):
+def train(episodes=500, seed=1, checkpoint=RESULT_DIR / "dqn.pt", agent=None):
     """Train a new agent by default, or continue the supplied dashboard agent."""
     seed_everything(seed); agent = agent or DQNAgent(seed); env = MECOffloadingEnv(profile="train")
     rows = [run_episode(env, agent, seed + i, explore=True) for i in range(episodes)]
@@ -53,7 +53,7 @@ def save_evaluation(summary, profile, path=RESULT_DIR / "evaluation.json"):
 
 def main():
     p = argparse.ArgumentParser(); sub = p.add_subparsers(dest="command", required=True)
-    t = sub.add_parser("train"); t.add_argument("--episodes", type=int, default=500); t.add_argument("--seed", type=int, default=7); t.add_argument("--checkpoint", default="artifacts/dqn.pt")
+    t = sub.add_parser("train"); t.add_argument("--episodes", type=int, default=500); t.add_argument("--seed", type=int, default=1); t.add_argument("--checkpoint", default="artifacts/dqn.pt")
     e = sub.add_parser("evaluate"); e.add_argument("--episodes", type=int, default=100); e.add_argument("--seed", type=int, default=100_007); e.add_argument("--checkpoint", default="artifacts/dqn.pt"); e.add_argument("--profile", choices=["train", "congestion", "outage", "unseen"], default="train")
     a = p.parse_args()
     if a.command == "train": print(json.dumps(train(a.episodes, a.seed, Path(a.checkpoint))[1], indent=2))

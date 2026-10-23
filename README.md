@@ -6,7 +6,7 @@ A phone-accessible, interactive research prototype for studying computation offl
 
 - **Real:** responsive web application, HTTP requests from the phone, controller logic, backend CPU workload, checksum output, and request logging.
 - **Simulated:** mobile uplink bandwidth, edge/cloud network delays, queue lengths, estimated energy, and end-to-end MEC latency.
-- **Learning:** uses a compact DQN when PyTorch is installed. Without PyTorch, it falls back to a tabular Q-learning baseline; the UI/API reports which agent is active.
+- **Learning:** uses a compact PyTorch DQN. PyTorch is a required dependency; there is no tabular fallback.
 
 This is an educational prototype, not a physical 5G/MEC benchmark. It must not be described as a real-world network latency measurement.
 
@@ -58,7 +58,7 @@ Example only: `http://192.168.1.20:5000`
 
 - `GET /api/status` — agent, network state, metrics
 - `POST /api/task` — submit a task; optional `{"force_destination":"Edge A"}`
-- `POST /api/network` — `{"mode":"normal"}`, `congestion`, `outage`, or `random`
+- `POST /api/network` — `{"mode":"normal"}`, `congestion`, `outage`, or `random`. `random` samples an independent network state.
 - `POST /api/train` — `{"episodes":300}`
 - `POST /api/reset` — clear request metrics
 
@@ -68,7 +68,7 @@ Example only: `http://192.168.1.20:5000`
 
 ```powershell
 .venv\Scripts\activate
-python experiment.py train --episodes 500 --seed 7 --checkpoint artifacts\dqn.pt
+python experiment.py train --episodes 500 --seed 1 --checkpoint artifacts\dqn.pt
 python experiment.py evaluate --checkpoint artifacts\dqn.pt --episodes 100 --seed 100007 --profile train
 python experiment.py evaluate --checkpoint artifacts\dqn.pt --episodes 100 --seed 100007 --profile congestion
 python experiment.py evaluate --checkpoint artifacts\dqn.pt --episodes 100 --seed 100007 --profile outage
@@ -95,7 +95,7 @@ The simulator is a sequential MDP. Its 13-value state includes normalized task s
 
 Reward is dimensionless: `-(latency_ms / 150 + 0.35 * energy_mJ / 100 + 2 * deadline_miss + 4 * failed_offload)`. Latency is a simulated ms estimate, energy is a simulated mJ estimate, 150 ms is the latency scaling reference, and 100 mJ is the energy scaling reference. The weights and penalties are configurable simulation assumptions, not calibrated measurements.
 
-Training uses only the `train` profile. Evaluation begins at a disjoint seed range; all evaluated policies receive identical episode seeds. `congestion`, `outage`, and `unseen` are stress tests, with `unseen` including bandwidth/jitter/outage dynamics excluded from training. The commands save model checkpoints and machine-readable JSON/CSV results under `artifacts/`. Reports list average latency, estimated energy, deadline-miss rate, task-failure rate, and cumulative reward. They are simulated estimates and do not establish physical performance, novelty, or guaranteed superiority.
+Training uses only the `train` profile. Evaluation begins at a disjoint seed range; all evaluated policies receive identical episode seeds. `congestion`, `outage`, and `unseen` are stress tests. The unseen profile changes the distributions and outage dynamics; jitter is stochastic in every profile, including training. The dashboard's `random` mode independently samples a network state and is not a paper evaluation profile. The commands save model checkpoints and machine-readable JSON/CSV results under `artifacts/`. Reports list average latency, estimated energy, deadline-miss rate, task-failure rate, and cumulative reward. They are simulated estimates and do not establish physical performance, novelty, or guaranteed superiority.
 
 Do not claim novelty merely because this app combines a phone interface and DRL. Related work already studies DRL-based MEC offloading and digital-twin-assisted learning. The contribution should be established through a literature review and a clearly defined experiment, for example evaluating adaptation to previously unseen burst/outage patterns, with DQN and non-learning baselines, multiple random seeds, confidence intervals, and ablation studies.
 
